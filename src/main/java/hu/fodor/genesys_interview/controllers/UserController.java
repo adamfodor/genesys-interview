@@ -3,6 +3,7 @@ package hu.fodor.genesys_interview.controllers;
 import hu.fodor.genesys_interview.dto.*;
 import hu.fodor.genesys_interview.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class UserController {
 
     private final UserService service;
 
+    @Operation(summary = "Create user")
     @PostMapping
     public ResponseEntity<ApiResponse<UserResponse>> create(@Valid @RequestBody CreateUserRequest req) {
 
@@ -28,7 +30,7 @@ public class UserController {
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.ok("User created successfully", user));
     }
-
+    @Operation(summary = "Login")
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<UserResponse>> login(@RequestBody LoginRequest req) {
 
@@ -37,20 +39,20 @@ public class UserController {
         return ResponseEntity
                 .ok(ApiResponse.ok("Login successful", user));
     }
-
+    @Operation(summary = "Get all user")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponse>>> getAll() {
         List<UserResponse> userResponseList = service.getAll();
         return ResponseEntity.ok(ApiResponse.ok("Successful request",userResponseList));
     }
-
+    @Operation(summary = "Update user")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponse>> update(@PathVariable UUID id,
                                @Valid @RequestBody UpdateUserRequest req) {
         UserResponse updated = service.update(id, req);
         return ResponseEntity.ok(ApiResponse.ok("Successfully updated",updated));
     }
-
+    @Operation(summary = "Delete user")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
