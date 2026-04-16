@@ -20,14 +20,14 @@ Simple REST API for user management and authentication built with Spring Boot.
 ### 1. Clone the repo
 
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone https://github.com/adamfodor/genesys-interview.git
+cd genesys-interview
 ```
 
 ### 2. Start the app
 
 ```bash
-docker compose up --build
+docker compose up -d
 ```
 
 ---
