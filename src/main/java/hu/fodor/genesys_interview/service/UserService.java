@@ -5,6 +5,7 @@ import hu.fodor.genesys_interview.dto.LoginRequest;
 import hu.fodor.genesys_interview.dto.UpdateUserRequest;
 import hu.fodor.genesys_interview.dto.UserResponse;
 import hu.fodor.genesys_interview.entity.User;
+import hu.fodor.genesys_interview.exceptions.ConflictException;
 import hu.fodor.genesys_interview.exceptions.InvalidCredentialsException;
 import hu.fodor.genesys_interview.exceptions.ResourceNotFoundException;
 import hu.fodor.genesys_interview.repository.UserRepository;
@@ -27,7 +28,7 @@ public class UserService {
     public UserResponse create(CreateUserRequest req) {
 
         if (repo.existsByEmail(req.email())) {
-            throw new RuntimeException("Email already exists");
+            throw new ConflictException("Email already exists");
         }
 
         User user = User.builder()

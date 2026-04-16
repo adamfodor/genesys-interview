@@ -2,6 +2,7 @@ package hu.fodor.genesys_interview.service;
 
 import hu.fodor.genesys_interview.dto.*;
 import hu.fodor.genesys_interview.entity.User;
+import hu.fodor.genesys_interview.exceptions.ConflictException;
 import hu.fodor.genesys_interview.exceptions.InvalidCredentialsException;
 import hu.fodor.genesys_interview.exceptions.ResourceNotFoundException;
 import hu.fodor.genesys_interview.repository.UserRepository;
@@ -69,7 +70,7 @@ class UserServiceTest {
 
         when(repo.existsByEmail(req.email())).thenReturn(true);
 
-        assertThrows(RuntimeException.class,
+        assertThrows(ConflictException.class,
                 () -> userService.create(req));
     }
 
