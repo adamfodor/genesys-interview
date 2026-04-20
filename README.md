@@ -45,7 +45,8 @@ docker compose up -d
 ## 📖 Endpoints
 
 * `POST /api/users` → create user
-* `POST /api/users/login` → login
+* `POST /api/users/login` → login and returns the corresponding user object if creadentials are valid
+* `POST /api/users/jwtLogin` → login and provides the jwt token
 * `GET /api/users` → list users
 * `PUT /api/users/{id}` → update user
 * `DELETE /api/users/{id}` → delete user
@@ -55,4 +56,3 @@ docker compose up -d
 ## 🔐 Notes
 
 * Passwords are hashed using BCrypt
-* No JWT/auth system (out of scope for this task)
