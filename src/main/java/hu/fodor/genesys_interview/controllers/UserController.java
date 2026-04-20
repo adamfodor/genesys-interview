@@ -32,7 +32,7 @@ public class UserController {
     }
     @Operation(summary = "Login")
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<UserResponse>> login(@RequestBody LoginRequest req) {
+    public ResponseEntity<ApiResponse<UserResponse>> login(@RequestBody @Valid LoginRequest req) {
 
         UserResponse user = service.login(req);
 

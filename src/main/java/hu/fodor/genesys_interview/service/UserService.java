@@ -46,12 +46,15 @@ public class UserService {
 
         if (!user.getEmail().equals(req.email()) &&
                 repo.existsByEmailAndIdNot(req.email(), id)) {
-            throw new RuntimeException("Email already exists");
+            throw new ConflictException("Email already exists");
         }
 
         user.setName(req.name());
         user.setEmail(req.email());
-        user.setPassword(encoder.encode(req.password()));
+        if (req.password() != null && !req.password().isBlank()){
+
+            user.setPassword(encoder.encode(req.password()));
+        }
 
         return UserResponse.toDto(repo.save(user));
     }
