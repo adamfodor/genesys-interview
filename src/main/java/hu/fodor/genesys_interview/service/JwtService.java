@@ -3,6 +3,7 @@ package hu.fodor.genesys_interview.service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -10,8 +11,8 @@ import java.util.Date;
 
 @Service
 public class JwtService {
-
-    private final String SECRET = "my-secret-key-my-secret-key-12345679841354687"; // 256-bit
+    @Value("${app.jwt.secret}")
+    private  String SECRET;
 
     private Key getSignKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());

@@ -31,20 +31,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
-        System.out.println(authHeader);
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String token = authHeader.substring(7);
-        System.out.println(token);
+
         try {
             String email = jwtService.extractEmail(token);
-            System.out.println(email);
             User user = userRepository.findByEmail(email)
                     .orElse(null);
-            System.out.println(user.toString());
             if (user != null && jwtService.isValid(token, user.getEmail())) {
 
                 UsernamePasswordAuthenticationToken auth =
