@@ -56,4 +56,3 @@ docker compose up -d
 ## 🔐 Notes
 
 * Passwords are hashed using BCrypt
-* No JWT/auth system (out of scope for this task)
