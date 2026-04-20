@@ -39,6 +39,13 @@ public class UserController {
         return ResponseEntity
                 .ok(ApiResponse.ok("Login successful", user));
     }
+    @PostMapping("/jwtLogin")
+    @Operation(summary = "Login with jwt")
+    public ResponseEntity<ApiResponse<AuthResponse>> loginJWT(@RequestBody @Valid LoginRequest req){
+        AuthResponse authResponse = service.loginWithJwt(req);
+        return ResponseEntity.ok(ApiResponse.ok("Login successful",authResponse));
+    }
+
     @Operation(summary = "Get all user")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponse>>> getAll() {

@@ -1,9 +1,6 @@
 package hu.fodor.genesys_interview.service;
 
-import hu.fodor.genesys_interview.dto.CreateUserRequest;
-import hu.fodor.genesys_interview.dto.LoginRequest;
-import hu.fodor.genesys_interview.dto.UpdateUserRequest;
-import hu.fodor.genesys_interview.dto.UserResponse;
+import hu.fodor.genesys_interview.dto.*;
 import hu.fodor.genesys_interview.entity.User;
 import hu.fodor.genesys_interview.exceptions.ConflictException;
 import hu.fodor.genesys_interview.exceptions.InvalidCredentialsException;
@@ -23,6 +20,7 @@ public class UserService {
 
     private final UserRepository repo;
     private final PasswordEncoder encoder;
+    private final JwtService jwtService;
 
     public UserResponse create(CreateUserRequest req) {
 
@@ -89,6 +87,23 @@ public class UserService {
                 user.getEmail(),
                 user.getLastLogin()
         );
+    }
+
+
+    public AuthResponse loginWithJwt(LoginRequest req){
+        User user = repo.findByEmail(req.email())
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
+
+        if (!encoder.matches(req.password(), user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
+
+        user.setLastLogin(LocalDateTime.now());
+        repo.save(user);
+
+        String token = jwtService.generateToken(user.getEmail());
+
+        return new AuthResponse(token);
     }
 
     public UserResponse getUserById(UUID id){
