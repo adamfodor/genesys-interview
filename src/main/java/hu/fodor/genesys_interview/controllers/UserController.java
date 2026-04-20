@@ -58,4 +58,10 @@ public class UserController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<UserResponse>> getById(@PathVariable UUID id){
+        UserResponse user = service.getUserById(id);
+        return ResponseEntity.ok(ApiResponse.ok("Successful request",user));
+    }
 }

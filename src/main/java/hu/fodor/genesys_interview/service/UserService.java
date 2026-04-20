@@ -91,4 +91,9 @@ public class UserService {
         );
     }
 
+    public UserResponse getUserById(UUID id){
+        return repo.findById(id).map(UserResponse::toDto)
+                .orElseThrow(()-> new ResourceNotFoundException("User not found"));
+    }
+
 }
