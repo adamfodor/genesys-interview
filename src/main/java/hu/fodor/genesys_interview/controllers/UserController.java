@@ -46,6 +46,9 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.ok("Login successful",authResponse));
     }
 
+    /*
+    pagination add page number and size in query paramter and pass it to the function call
+     */
     @Operation(summary = "Get all user")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponse>>> getAll() {

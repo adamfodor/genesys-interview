@@ -64,6 +64,10 @@ public class UserService {
     }
 
     public List<UserResponse> getAll() {
+
+        /*
+        get the parameters to make the pageable object and pass it to the repository
+         */
         return repo.findAll().stream().map(UserResponse::toDto).toList();
     }
 
