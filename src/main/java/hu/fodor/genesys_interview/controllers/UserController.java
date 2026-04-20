@@ -67,6 +67,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get user by id")
     public ResponseEntity<ApiResponse<UserResponse>> getById(@PathVariable UUID id){
         UserResponse user = service.getUserById(id);
         return ResponseEntity.ok(ApiResponse.ok("Successful request",user));
